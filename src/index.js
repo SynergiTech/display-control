@@ -7,8 +7,7 @@ var modulePath = __dirname + "/platforms/" + platform;
 
 if (fs.existsSync(modulePath + '.js')) {
     module.exports = require(modulePath);
-}
-else {
+} else {
     module.exports = {
         sleep: () => {},
         wake: () => {},

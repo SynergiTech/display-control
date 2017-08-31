@@ -6,18 +6,18 @@ const os = require("os");
 const darwin = {};
 
 darwin.sleep = () => {
-	execFile("pmset", ["displaysleepnow"], (error, stdout, stderr) => {
-		if (error) {
-			throw error;
-		}
-	});
+    execFile("pmset", ["displaysleepnow"], (error, stdout, stderr) => {
+        if (error) {
+            throw error;
+        }
+    });
 }
 darwin.wake = () => {
-	execFile("caffeinate", ["-u"], (error, stdout, stderr) => {
-		if (error) {
-			throw error;
-		}
-	});
+    execFile("caffeinate", ["-u"], (error, stdout, stderr) => {
+        if (error) {
+            throw error;
+        }
+    });
 }
 
 darwin.supported = () => {
