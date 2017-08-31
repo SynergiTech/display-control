@@ -1,4 +1,4 @@
-# control-display
+# display-control
 
 A node module that supports sleeping and waking the display. Supports Windows, Mac and Linux.
 
