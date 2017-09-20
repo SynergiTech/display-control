@@ -48,7 +48,6 @@ win32.wake = () => {
     });
 
     sendInput.SendInput(1, mouseInput.ref(), (os.arch() == 'x64' ? 40 : 28));
-    // sendInput.SendInput(1, mouseInput.ref(), 40);
     sendMessageW.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, POWER_ON);
 }
 
