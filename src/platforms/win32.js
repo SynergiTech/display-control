@@ -1,21 +1,13 @@
 'use strict';
-const ffi = require('ffi');
+const exec = require('child_process').exec;
 const os = require('os');
-const HWND_BROADCAST = 0xffff;
-const WM_SYSCOMMAND = 0x0112;
-const SC_MONITORPOWER = 0xf170;
-const POWER_OFF = 0x0002;
-const POWER_ON = -0x0001;
 const win32 = {};
-const user32 = ffi.Library('user32', {
-    SendMessageW: ['int', ['ulong', 'uint', 'long', 'long']]
-});
 win32.sleep = () => {
-    user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, POWER_OFF);
+    exec('powershell (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);\' -Name a -Pas)::SendMessage(0xffff,0x0112,0xF170,-0x0001)');
 };
 win32.wake = () => {
-    user32.mouse_event(1, 40, 0, 0, 0);
-    user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, POWER_ON);
+    exec('powershell (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, int dwExtraInfo);\' -Name user32 -PassThru)::mouse_event(1,1,0,0,0)');
+    exec('powershell (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);\' -Name a -Pas)::SendMessage(0xffff,0x0112,0xF170,0x0002)');
 };
 win32.supported = () => {
     return os.platform == 'win32';
