@@ -1,58 +1,21 @@
-"use strict";
-
-const ffi = require("ffi");
-const ref = require('ref');
-const struct = require('ref-struct');
-const os = require("os");
-
-const HWND_BROADCAST = 0xffff;
-const WM_SYSCOMMAND = 0x0112;
-const SC_MONITORPOWER = 0xf170;
-const POWER_OFF = 0x0002;
-const POWER_ON = -0x0001;
-
+'use strict';
+const spawn = require('child_process').spawn;
+const os = require('os');
 const win32 = {};
-
+const exec = function(cmd) {
+    return spawn(cmd, [], {
+        shell: true,
+        windowsHide: true
+    });
+};
 win32.sleep = () => {
-    var user32 = ffi.Library("user32", {
-        SendMessageW: ["int", ["ulong", "uint", "long", "long"]]
-    });
-    user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, POWER_OFF);
-}
-
+    exec('powershell -NonInteractive (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);\' -Name a -Pas)::SendMessage(0xffff,0x0112,0xF170,0x0002)');
+};
 win32.wake = () => {
-    var sendMessageW = ffi.Library("user32", {
-        SendMessageW: ["int", ["ulong", "uint", "long", "long"]]
-    });
-    var MouseInput = struct({
-        'type': 'int',
-        'dx': 'long',
-        'dy': 'long',
-        'mouseData': 'int',
-        'dwFlags': 'int',
-        'time': 'int',
-        'dwExtraInfo': 'int'
-    })
-    var MouseInputPtr = ref.refType(MouseInput);
-    var mouseInput = new MouseInput();
-    mouseInput.type = 0;
-    mouseInput.dx = 0;
-    mouseInput.dy = 0;
-    mouseInput.dwFlags = 0x0002;
-    mouseInput.mouseData = 0;
-    mouseInput.time = 0;
-    mouseInput.dwExtraInfo = 0;
-
-    var sendInput = ffi.Library('user32', {
-        'SendInput': ['int', ['uint', MouseInputPtr, 'int']]
-    });
-
-    sendInput.SendInput(1, mouseInput.ref(), (os.arch() == 'x64' ? 40 : 28));
-    sendMessageW.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, POWER_ON);
-}
-
+    exec('powershell -NonInteractive (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, int dwExtraInfo);\' -Name user32 -PassThru)::mouse_event(1,1,0,0,0)');
+    exec('powershell -NonInteractive (Add-Type \'[DllImport(\\"user32.dll\\")]^public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);\' -Name a -Pas)::SendMessage(0xffff,0x0112,0xF170,-0x0001)');
+};
 win32.supported = () => {
     return os.platform == 'win32';
-}
-
+};
 module.exports = win32;

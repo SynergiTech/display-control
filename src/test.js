@@ -1,11 +1,8 @@
-const displaycontrol = require(__dirname + "/index.js");
-
-console.log("Supported: " + displaycontrol.supported());
-
+const displaycontrol = require(__dirname + '/index.js');
+console.log('Supported: ' + displaycontrol.supported());
 console.log('Turning off');
 displaycontrol.sleep();
-
-setTimeout(function () {
+setTimeout(function() {
     console.log('Turning on');
     displaycontrol.wake();
-}, 10000)
+}, 10000);

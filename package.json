@@ -1,38 +1,17 @@
 {
-  "name": "display-control",
-  "version": "0.0.2",
-  "description": "Sleep and wake the display",
-  "main": "src/index.js",
-  "files": [
-    "src"
-  ],
-  "keywords": [
-    "turn",
-    "on",
-    "off",
-    "sleep",
-    "wake",
-    "display",
-    "screen",
-    "monitor",
-    "api",
-    "linux",
-    "darwin",
-    "mac",
-    "windows",
-    "win32"
-  ],
-  "author": "SynergiTech (https://github.com/SynergiTech)",
-  "homepage": "https://github.com/SynergiTech/display-control",
-  "bugs": {
-    "url": "https://github.com/SynergiTech/display-control/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SynergiTech/display-control.git"
-  },
-  "dependencies": {
-    "ffi": "^2.2.0",
-    "ref": "^1.3.5"
-  }
+    "name": "display-control",
+    "version": "0.0.2",
+    "description": "Sleep and wake the display",
+    "main": "src/index.js",
+    "files": ["src"],
+    "keywords": ["turn", "on", "off", "sleep", "wake", "display", "screen", "monitor", "api", "linux", "darwin", "mac", "windows", "win32"],
+    "author": "SynergiTech (https://github.com/SynergiTech)",
+    "homepage": "https://github.com/SynergiTech/display-control",
+    "bugs": {
+        "url": "https://github.com/SynergiTech/display-control/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SynergiTech/display-control.git"
+    }
 }
