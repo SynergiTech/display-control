@@ -1,6 +1,6 @@
 {
     "name": "display-control",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "Sleep and wake the display",
     "main": "src/index.js",
     "files": ["src"],
