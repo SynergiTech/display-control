@@ -2,11 +2,13 @@
 const exec = require('child_process').exec;
 const os = require('os');
 const linux = {};
+const DISPLAY = process.env.DISPLAY || ':0';
+
 linux.sleep = () => {
-    exec('export DISPLAY=:0; xset dpms force suspend');
+    exec(`export DISPLAY=${DISPLAY}; xset dpms force suspend`);
 };
 linux.wake = () => {
-    exec('export DISPLAY=:0; xset dpms force on');
+    exec(`export DISPLAY=${DISPLAY}; xset dpms force on`);
 };
 linux.supported = () => {
     return os.platform() == 'linux';
