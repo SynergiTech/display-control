@@ -14,5 +14,5 @@ const displaycontrol = require("display-control");
 displaycontrol.sleep();
 setTimeout(() => {
   displaycontrol.wake();
-}, 100)
+}, 100);
 ```
