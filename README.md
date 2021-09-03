@@ -9,8 +9,10 @@ $ npm install display-control
 
 ## How to use
 ```js
-var displaycontrol = require("display-control");
+const displaycontrol = require("display-control");
 
 displaycontrol.sleep();
-displaycontrol.wake();
+setTimeout(() => {
+  displaycontrol.wake();
+}, 100);
 ```
